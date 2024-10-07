@@ -1,1 +1,1 @@
-Dependance client flip management server
+'Dependance client flip management server'
