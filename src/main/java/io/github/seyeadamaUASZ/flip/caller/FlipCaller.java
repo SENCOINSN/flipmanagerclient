@@ -26,13 +26,13 @@ public class FlipCaller {
     public <T> T getCall(UriComponentsBuilder builder, ParameterizedTypeReference<T> type) throws FlipException {
         long start = System.currentTimeMillis();
         try {
-            log.info("Start calling  sencoin Api url : {} in {} ms", builder.toUriString(),start);
+            log.info("Start calling  flip server url : {} in {} ms", builder.toUriString(),start);
             return restTemplate.exchange(builder.build().toString(), HttpMethod.GET, null, type).getBody();
 
         } catch (Exception e) {
             return handleException(e);
         } finally {
-            log.info("End calling  sencoin Api url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
+            log.info("End calling  flip server url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
         }
     }
 
@@ -40,12 +40,12 @@ public class FlipCaller {
     public <T> T postCall(UriComponentsBuilder builder, Object body, ParameterizedTypeReference<T> type) throws  FlipException {
         long start = System.currentTimeMillis();
         try {
-            log.info("Start calling  sencoin Api url : {} in {} ms", builder.toUriString(),start);
+            log.info("Start calling  flip server url : {} in {} ms", builder.toUriString(),start);
             return restTemplate.exchange(builder.build().toString(), HttpMethod.POST, createRequestEntity(body), type).getBody();
         } catch (Exception e) {
             return handleException(e);
         } finally {
-            log.info("End calling  sencoin Api url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
+            log.info("End calling flip server url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
         }
     }
 
@@ -53,7 +53,7 @@ public class FlipCaller {
     public <T> T putCall(UriComponentsBuilder builder, Object body, ParameterizedTypeReference<T> type) throws FlipException {
         long start = System.currentTimeMillis();
         try {
-            log.info("Start calling  sencoin Api url : {} in {} ms", builder.toUriString(),start);
+            log.info("Start calling  flip server url : {} in {} ms", builder.toUriString(),start);
             if(body == null){
                 return restTemplate.exchange(builder.build().toString(), HttpMethod.PUT, null, type).getBody();
             }else{
@@ -63,19 +63,19 @@ public class FlipCaller {
         } catch (Exception e) {
             return handleException(e);
         } finally {
-            log.info("End calling  sencoin Api url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
+            log.info("End calling  flip url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
         }
     }
 
     public ResponseEntity deleteCall(UriComponentsBuilder builder) throws FlipException {
         long start = System.currentTimeMillis();
         try {
-            log.info("Start calling  sencoin Api url : {} in {} ms", builder.toUriString(),start);
+            log.info("Start calling  flip url : {} in {} ms", builder.toUriString(),start);
             return restTemplate.exchange(builder.build().toString(), HttpMethod.DELETE, null, ResponseEntity.class);
         } catch (Exception e) {
             return handleException(e);
         } finally {
-            log.info("End calling  sencoin Api url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
+            log.info("End calling  flip server url : {} in {} ms", builder.toUriString(), System.currentTimeMillis() - start);
         }
     }
 
@@ -84,7 +84,7 @@ public class FlipCaller {
         if (e instanceof HttpClientErrorException && HttpStatus.NOT_FOUND.equals(((HttpClientErrorException) e).getStatusCode())) {
             HttpClientErrorException notFoundException = (HttpClientErrorException) e;
 
-            log.error("Http error while calling  sencoin Api : Status code : {}, error : {}",
+            log.error("Http error while calling  flip server : Status code : {}, error : {}",
                     notFoundException.getStatusCode(),
                     notFoundException.getResponseBodyAsString());
             FlipMessageError message = JsonUtilities.getMessage(notFoundException.getResponseBodyAsString());
@@ -93,7 +93,7 @@ public class FlipCaller {
             }
 
         }
-        log.error("Error while calling  sencoin Api : ", e);
+        log.error("Error while calling flip Api : ", e);
         throw new FlipException(e.getMessage());
     }
 

@@ -1,1 +1,1 @@
-Dependance client flip management server
+## _**Client Management dependance maven**_
